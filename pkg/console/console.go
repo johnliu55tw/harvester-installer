@@ -55,11 +55,17 @@ func NewConsole() (*Console, error) {
 	if err != nil {
 		return nil, err
 	}
+	conf := config.NewHarvesterConfig()
+	conf.SystemSettings = map[string]string{
+		"auto-add-disk-paths": "/dev/sdwut",
+		"log-level":           "Debug",
+		"foo":                 "bar",
+	}
 	return &Console{
 		context:  context.Background(),
 		Gui:      g,
 		elements: make(map[string]widgets.Element),
-		config:   config.NewHarvesterConfig(),
+		config:   conf,
 	}, nil
 }
 
