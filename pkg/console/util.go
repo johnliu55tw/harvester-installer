@@ -377,13 +377,13 @@ func doInstall(g *gocui.Gui, hvstConfig *config.HarvesterConfig, cosConfig *yipS
 	if err != nil {
 		return err
 	}
-	defer os.Remove(cosConfigFile)
+	// defer os.Remove(cosConfigFile)
 
 	hvstConfigFile, err := saveTemp(hvstConfig, "harvester")
 	if err != nil {
 		return err
 	}
-	defer os.Remove(hvstConfigFile)
+	// defer os.Remove(hvstConfigFile)
 
 	hvstConfig.Install.ConfigURL = cosConfigFile
 
@@ -403,6 +403,8 @@ func doInstall(g *gocui.Gui, hvstConfig *config.HarvesterConfig, cosConfig *yipS
 		defer os.Remove(cosPartLayout)
 		env = append(env, fmt.Sprintf("_COS_PARTITION_LAYOUT=%s", cosPartLayout))
 	}
+
+	logrus.Infof("%s /usr/sbin/harv-install", strings.Join(env, " "))
 
 	if err := execute(g, env, "/usr/sbin/harv-install"); err != nil {
 		webhooks.Handle(EventInstallFailed)
