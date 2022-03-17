@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 TOP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )"
 SCRIPTS_DIR="${TOP_DIR}/scripts"
